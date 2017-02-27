@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {%load static%}
+    <meta charset="utf-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+  </head>
+  <body>
+    <div class="banner">
+      <h1>Welcome {{user.name}}</h1>
+      <h2>{{hits.count}}  people have poked you!</h2>
+      <a href="/logout">Logout</a>
+    </div>
+    <div>
+      {% for hit in hits%}
+        <p>{{hit.aggressor.name}} poked you</p>
+      {% endfor %}
+    </div>
+    <div class="poke_list">
+      <h3>People you may want to poke:</h3>
+      <table>
+      <tr>
+        <th>Name</th>
+        <th>Alias</th>
+        <th>Email Address</th>
+        <th>Poke History</th>
+        <th>Action</th>
+      </tr>
+      {% if targets %}
+      {% for target in targets %}
+      <tr>
+        <td>{{target.name}}</td>
+        <td>{{target.alias}}</td>
+        <td>{{target.email}}</td>
+        <td>{{target.poked.count}}</td>
+        <td><a href="/poke/{{target.id}}"><input type="submit" name="submit" value="Poke!"></a></td>
+      </tr>
+      {% endfor %}
+      {% endif %}
+      </table>
+    </div>
+  </body>
+</html>
